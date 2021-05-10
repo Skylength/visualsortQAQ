@@ -10,35 +10,33 @@ MainWindow::MainWindow(QWidget *parent)
     length=0;
     blockH = 20;
     blockW = 20;
-    data = new int [length];
+    data = new int [1000];
+    flag = 1;
     cur = 0;
-    flag = 0;
+    thread = new QThread(this);
 
-    //进行信号与槽的绑定
-        //开启子线程
-     //运行子线程的goBubble函数
 }
 void MainWindow::paintEvent(QPaintEvent *){
     QPainter painter;
-    QFont font1("微软雅黑",10,QFont::Bold,true);
     if(data == nullptr)
-        return;
+        return ;
+    QFont font1("微软雅黑",8,QFont::Bold,true);
     painter.begin(this);
     for(int i = 0; i < length;i++){
         QRect rect(i*blockW,height()-data[i]*blockH,
                    blockW - 1,data[i]*blockH);//绘制矩形高度
-        QString d = QString::number(data[i]);
+
         if(i == cur){
             painter.fillRect(rect,Qt::blue);
         }else {
             painter.fillRect(rect,Qt::red);
         }
+        QString d = QString::number(data[i]);
         painter.setFont(font1);
         painter.drawText(rect,d);
     }
     painter.end();
 }
-
 void MainWindow::deal(int c)
 {
     cur = c;
@@ -53,7 +51,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_lineEdit_editingFinished()
+void MainWindow::on_lineEdit_editingFinished()//文本框数据处理
 {
 
     QString s = ui->lineEdit->text();
@@ -61,56 +59,75 @@ void MainWindow::on_lineEdit_editingFinished()
     length = list.size();
     for (int i = 0; i < list.size(); i++)
        data[i] = list[i].toInt();
-
 }
 
 void MainWindow::on_pushButton_clicked()//冒泡排序
 {
-    repaint();
-    bubble = new Bubble(length,length,data);
-    thread = new QThread(this);
-    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
-    if(flag == 1)
-        connect(this,&MainWindow::start,bubble,&Bubble::goBubble);
-
-    else
-        connect(this,&MainWindow::start,bubble,&Bubble::goBubble1);
-    bubble->moveToThread(thread);
-    thread->start();
-    emit start();
+    bubblesort();
 }
 
-void MainWindow::on_radioButton_clicked()
-{
-    flag = 0;
-}
 
 void MainWindow::on_pushButton_3_clicked()//选择排序
 {
-    repaint();
-    thread = new QThread(this);
-    bubble = new Bubble(length,length,data);
-    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
-    if(flag == 1)
-        connect(this,&MainWindow::start,bubble,&Bubble::goselect);
-    else
-        connect(this,&MainWindow::start,bubble,&Bubble::goselect);
-    bubble->moveToThread(thread);
-    thread->start();
-    emit start();
+    selectsort();
 }
 
 void MainWindow::on_pushButton_2_clicked()//快速排序
 {
-    repaint();
-    thread = new QThread(this);
-    bubble = new Bubble(length,length,data);
+
+    bubble = new Bubble(flag,length,length,data);
+
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
-    if(flag == 1)
-        connect(this,&MainWindow::start,bubble,&Bubble::goquick);
-    else
-        connect(this,&MainWindow::start,bubble,&Bubble::goquick);
+    connect(this,&MainWindow::start,bubble,&Bubble::goquick);
     bubble->moveToThread(thread);
     thread->start();
     emit start();
+}
+
+void MainWindow::on_pushButton_4_clicked()//重排
+{
+
+    ui->lineEdit->setText("");
+    delete [] data;
+}
+
+void MainWindow::on_radioButton_2_clicked()
+{
+    changes();
+}
+void MainWindow::bubblesort()
+{
+    bubble = new Bubble(flag,length,length,data);
+    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
+    connect(this,&MainWindow::start,bubble,&Bubble::goBubble);
+    bubble->moveToThread(thread);
+    thread->start(); //开启子线程
+    emit start();   //运行子线程的go函数
+
+}
+void MainWindow::selectsort()
+{
+    bubble = new Bubble(flag,length,length,data);
+    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
+    connect(this,&MainWindow::start,bubble,&Bubble::goselect);
+    bubble->moveToThread(thread);
+    thread->start();
+    emit start();
+}
+void MainWindow::changes()
+{
+
+    delete bubble;
+    flag = 0;
+    qDebug()<<flag;
+    QString s = ui->lineEdit->text();
+    QStringList list = s.split(" ");
+    length = list.size();
+    for (int i = 0; i < list.size(); i++)
+       data[i] = list[i].toInt();
+}
+
+void MainWindow::on_radioButton_clicked()
+{
+    flag = 1;
 }

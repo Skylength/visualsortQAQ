@@ -11,53 +11,62 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Visual Sort</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>190</y>
-      <width>160</width>
-      <height>208</height>
+      <x>635</x>
+      <y>160</y>
+      <width>151</width>
+      <height>254</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>输入数据（空格分开）</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QRadioButton" name="radioButton">
-             <property name="text">
-              <string>升序</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="radioButton_2">
-             <property name="text">
-              <string>降序</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>输入数据（空格分开）</string>
+         </property>
+        </widget>
        </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="clearButtonEnabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="text">
+          <string>升序</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_2">
+         <property name="text">
+          <string>降序</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="text">
@@ -79,22 +88,16 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>重排</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>420</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>暂停</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
