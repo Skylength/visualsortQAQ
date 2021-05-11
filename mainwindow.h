@@ -18,7 +18,7 @@ public:
     ~MainWindow();
     void paintEvent(QPaintEvent *e);
     void changes();//修改顺序
-
+    void speed(int index);
     void bubblesort();//冒泡排序
     void selectsort();
     void quicksort();
@@ -41,6 +41,8 @@ private slots:
 
     void on_radioButton_clicked();
 
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     int flag;       //判断顺序
@@ -51,6 +53,7 @@ private:
     int cur;        //当前排序的位子
     QThread *thread;
     Bubble *bubble;
+    int time;
 
 };
 

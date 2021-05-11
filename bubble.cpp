@@ -1,12 +1,12 @@
 #include "Bubble.h"
 #include <QDebug>
 
-Bubble::Bubble(int flag,int l, int m, int *data, QObject *parent) :
+Bubble::Bubble(int time,int flag,int l, int m, int *data, QObject *parent) :
     QObject(parent)
 {
     length = l;
     max = m;
-    mDelay = 100;//延时时间
+    mDelay = time;//延时时间
     this->data = data;
     f = flag;
 }
@@ -20,11 +20,11 @@ void Bubble::goBubble()
         flag = true;
         for(int j = 0; j < length-i; j++)
         {
-
+            bubbleSignal(j);
+            QThread::msleep(static_cast<unsigned int>(mDelay));
             if(f==1)
             {
-                bubbleSignal(j);
-                QThread::msleep(static_cast<unsigned int>(mDelay));
+
                 if(data[j] > data[j+1])
                 {
                     int t = data[j];
@@ -32,7 +32,6 @@ void Bubble::goBubble()
                     data[j+1] = t;
                     flag = false;
                 }
-
             }
             if(f==0)
             {

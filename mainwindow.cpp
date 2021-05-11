@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     flag = 1;
     cur = 0;
     thread = new QThread(this);
-
+    time = 1000;
 }
-void MainWindow::paintEvent(QPaintEvent *)
+void MainWindow::paintEvent(QPaintEvent *)//绘图
 {
     QPainter painter;
     if(data == nullptr)
@@ -39,10 +39,10 @@ void MainWindow::paintEvent(QPaintEvent *)
     painter.end();
 }
 
-void MainWindow::deal(int c)
+void MainWindow::deal(int c)//进行重绘
 {
     cur = c;
-    repaint();  //进行重绘
+    repaint();
 }
 
 MainWindow::~MainWindow()
@@ -52,7 +52,10 @@ MainWindow::~MainWindow()
     thread->wait();     //回收子线程资源
     delete ui;
 }
-
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    speed(index);
+}
 void MainWindow::on_lineEdit_editingFinished()//文本框数据处理
 {
 
@@ -63,6 +66,7 @@ void MainWindow::on_lineEdit_editingFinished()//文本框数据处理
        data[i] = list[i].toInt();
 }
 
+//槽函数
 void MainWindow::on_pushButton_clicked()//冒泡排序
 {
     bubblesort();
@@ -84,15 +88,23 @@ void MainWindow::on_pushButton_4_clicked()//重排
     ui->lineEdit->setText("");
     delete [] data;
 }
+void MainWindow::on_radioButton_clicked()//升序
+{
+    flag = 1;
+    changes();
+}
 
-void MainWindow::on_radioButton_2_clicked()
+void MainWindow::on_radioButton_2_clicked()//降序
 {
     flag = 0;
     changes();
 }
-void MainWindow::bubblesort()
+
+//函数接口
+
+void MainWindow::bubblesort()//冒泡排序
 {
-    bubble = new Bubble(flag,length,length,data);
+    bubble = new Bubble(time,flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goBubble);
     bubble->moveToThread(thread);
@@ -100,18 +112,17 @@ void MainWindow::bubblesort()
     emit start();   //运行子线程的go函数
 
 }
-void MainWindow::selectsort()
+void MainWindow::selectsort()//选择排序
 {
-    bubble = new Bubble(flag,length,length,data);
+    bubble = new Bubble(time,flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goselect);
     bubble->moveToThread(thread);
     thread->start();
     emit start();
 }
-void MainWindow::changes()
+void MainWindow::changes()//改变顺序
 {
-
     delete bubble;
     QString s = ui->lineEdit->text();
     QStringList list = s.split(" ");
@@ -119,9 +130,11 @@ void MainWindow::changes()
     for (int i = 0; i < list.size(); i++)
        data[i] = list[i].toInt();
 }
-void MainWindow::quicksort()
+
+
+void MainWindow::quicksort()//快速排序
 {
-    bubble = new Bubble(flag,length,length,data);
+    bubble = new Bubble(time,flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goquick);
     bubble->moveToThread(thread);
@@ -129,9 +142,22 @@ void MainWindow::quicksort()
     emit start();
 }
 
-void MainWindow::on_radioButton_clicked()
-{
-    flag = 1;
-    changes();
 
+void::MainWindow::speed(int index)//改变速度
+{
+    if(index==1)
+    {
+        time=300;
+        qDebug()<<time;
+    }
+    if(index==2)
+    {
+        time=100;
+        qDebug()<<time;
+    }
+    if(index==0)
+    {
+        time=500;
+        qDebug()<<time;
+    }
 }

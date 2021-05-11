@@ -8,7 +8,7 @@ class Bubble : public QObject
 {
     Q_OBJECT
 public:
-    explicit Bubble(int flag,int l,int m,int *data,QObject *parent = nullptr);
+    explicit Bubble(int time,int flag,int l,int m,int *data,QObject *parent = nullptr);
     void goBubble();      //处理排序算法
     void goselect();
 
@@ -26,7 +26,7 @@ private:
     int mDelay;     //延时时间，方便动态展示
     int mins;
     int maxs;
-    int f;
+    int f;          //判断顺序
 public slots:
 };
 
