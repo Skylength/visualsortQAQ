@@ -148,16 +148,13 @@ void::MainWindow::speed(int index)//改变速度
     if(index==1)
     {
         time=300;
-        qDebug()<<time;
     }
     if(index==2)
     {
         time=100;
-        qDebug()<<time;
     }
     if(index==0)
     {
         time=500;
-        qDebug()<<time;
     }
 }
