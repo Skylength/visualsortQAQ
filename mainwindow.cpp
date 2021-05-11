@@ -16,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     thread = new QThread(this);
 
 }
-void MainWindow::paintEvent(QPaintEvent *){
+void MainWindow::paintEvent(QPaintEvent *)
+{
     QPainter painter;
     if(data == nullptr)
         return ;
@@ -37,6 +38,7 @@ void MainWindow::paintEvent(QPaintEvent *){
     }
     painter.end();
 }
+
 void MainWindow::deal(int c)
 {
     cur = c;
@@ -66,7 +68,6 @@ void MainWindow::on_pushButton_clicked()//冒泡排序
     bubblesort();
 }
 
-
 void MainWindow::on_pushButton_3_clicked()//选择排序
 {
     selectsort();
@@ -74,14 +75,7 @@ void MainWindow::on_pushButton_3_clicked()//选择排序
 
 void MainWindow::on_pushButton_2_clicked()//快速排序
 {
-
-    bubble = new Bubble(flag,length,length,data);
-
-    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
-    connect(this,&MainWindow::start,bubble,&Bubble::goquick);
-    bubble->moveToThread(thread);
-    thread->start();
-    emit start();
+    quicksort();
 }
 
 void MainWindow::on_pushButton_4_clicked()//重排
@@ -93,6 +87,7 @@ void MainWindow::on_pushButton_4_clicked()//重排
 
 void MainWindow::on_radioButton_2_clicked()
 {
+    flag = 0;
     changes();
 }
 void MainWindow::bubblesort()
@@ -118,16 +113,25 @@ void MainWindow::changes()
 {
 
     delete bubble;
-    flag = 0;
-    qDebug()<<flag;
     QString s = ui->lineEdit->text();
     QStringList list = s.split(" ");
     length = list.size();
     for (int i = 0; i < list.size(); i++)
        data[i] = list[i].toInt();
 }
+void MainWindow::quicksort()
+{
+    bubble = new Bubble(flag,length,length,data);
+    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
+    connect(this,&MainWindow::start,bubble,&Bubble::goquick);
+    bubble->moveToThread(thread);
+    thread->start();
+    emit start();
+}
 
 void MainWindow::on_radioButton_clicked()
 {
     flag = 1;
+    changes();
+
 }
