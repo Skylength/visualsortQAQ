@@ -1,12 +1,12 @@
 #include "Bubble.h"
 #include <QDebug>
-
+#include"mainwindow.h"
 Bubble::Bubble(int time,int flag,int l, int m, double *data, QObject *parent) :
     QObject(parent)
 {
     length = l;
     max = m;
-    mDelay = time;//延时时间
+    mDelay = 240;
     this->data = data;
     f = flag;
 }
@@ -45,6 +45,7 @@ void Bubble::goBubble()
         bubbleSignal(i);
         QThread::msleep(static_cast<unsigned int>(mDelay));
     }
+    emit end();
 }
 
 void Bubble::goselect()//选择
@@ -80,6 +81,7 @@ void Bubble::goselect()//选择
         bubbleSignal(i);
         QThread::msleep(static_cast<unsigned int>(mDelay));
     }
+    emit end();
 }
 
 //快速排序
@@ -90,6 +92,7 @@ void Bubble::goquick()
         bubbleSignal(i);
         QThread::msleep(static_cast<unsigned int>(mDelay));
     }
+    emit end();
 }
 int Bubble::quickprocess(int mins,int maxs)
 {
@@ -182,6 +185,7 @@ void Bubble::goinsert()
         bubbleSignal(i);
         QThread::msleep(static_cast<unsigned int>(mDelay));
     }
+    emit end();
 }
 
 void Bubble::gomerge()
@@ -193,6 +197,7 @@ void Bubble::gomerge()
          bubbleSignal(i);
          QThread::msleep(static_cast<unsigned int>(mDelay));
      }
+     emit end();
 }
 void Bubble::merge(int L,int M,int R) /*合并函数*/
 {

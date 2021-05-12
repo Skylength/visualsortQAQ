@@ -25,10 +25,13 @@ public:
     void quicksort();
     void insertsort();
     void mergesort();
+    void ban();
 signals:
     void start();       //开启子线程
+    void indexs(int value);
 public slots:
     void deal(int); //处理来自子线程的消息
+    void release();
 private slots:
     void on_lineEdit_editingFinished();
 
@@ -44,11 +47,11 @@ private slots:
 
     void on_radioButton_clicked();
 
-    void on_comboBox_currentIndexChanged(int index);
-
     void on_pushButton_5_clicked();
 
     void on_pushButton_6_clicked();
+
+    void on_horizontalSlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
@@ -60,6 +63,7 @@ private:
     int cur;        //当前排序的位子
     QThread *thread;
     Bubble *bubble;
+    int begin;
     int time;
 };
 

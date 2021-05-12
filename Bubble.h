@@ -20,9 +20,11 @@ public:
     void mergeSort(int L,int R);
     void merge(int L,int M,int R);
     void gomerge();
-    int mDelay;     //延时时间，方便动态展示
+    void speeds(int value);
+    int mDelay;  //延时时间，方便动态展示
 signals:
     void bubbleSignal(int cur); //发送当前排序的位子
+    void end();
 private:
     int length;     //数组的长度
     double *data;      //数组
@@ -32,7 +34,9 @@ private:
     int maxs;
     int f;   //判断顺序
     int L,R,M;
+
 public slots:
+
 };
 
 #endif // BUBBLE_H
