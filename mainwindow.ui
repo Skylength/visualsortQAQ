@@ -17,10 +17,10 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>189</y>
-      <width>201</width>
-      <height>285</height>
+      <x>660</x>
+      <y>150</y>
+      <width>267</width>
+      <height>314</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,6 +28,13 @@
       <widget class="QLabel" name="label">
        <property name="text">
         <string>输入数据（空格分开）</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>（为了视觉效果，请输入0-100间的数）</string>
        </property>
       </widget>
      </item>
@@ -137,8 +144,8 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>0</y>
+      <x>640</x>
+      <y>-10</y>
       <width>20</width>
       <height>671</height>
      </rect>

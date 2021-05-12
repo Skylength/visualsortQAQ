@@ -9,7 +9,7 @@ class Bubble : public QObject
     Q_OBJECT
 public:
 
-    explicit Bubble(int time,int flag,int l,int m,int *data,QObject *parent = nullptr);
+    explicit Bubble(int time,int flag,int l,int m,double *data,QObject *parent = nullptr);
     void goBubble();      //处理排序算法
     void goselect();
     void goinsert();
@@ -20,14 +20,14 @@ public:
     void mergeSort(int L,int R);
     void merge(int L,int M,int R);
     void gomerge();
+    int mDelay;     //延时时间，方便动态展示
 signals:
     void bubbleSignal(int cur); //发送当前排序的位子
 private:
     int length;     //数组的长度
-    int *data;      //数组
+    double *data;      //数组
     int max;        //单个数据的最大值
     int cur;        //排序当前处理的位置
-    int mDelay;     //延时时间，方便动态展示
     int mins;
     int maxs;
     int f;   //判断顺序

@@ -1,7 +1,7 @@
 #include "Bubble.h"
 #include <QDebug>
 
-Bubble::Bubble(int time,int flag,int l, int m, int *data, QObject *parent) :
+Bubble::Bubble(int time,int flag,int l, int m, double *data, QObject *parent) :
     QObject(parent)
 {
     length = l;

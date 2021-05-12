@@ -4,7 +4,8 @@
 #include "Bubble.h"
 #include <QPainter>
 #include <QMainWindow>
-
+#include <QMessageBox>
+#include <QLineEdit>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -52,15 +53,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
     int flag;       //判断顺序
-    int blockH;     //绘图方块的高
-    int blockW;     //绘图方块的宽
+    double blockH;     //绘图方块的高
+    double blockW;     //绘图方块的宽
     int length;     //数组长度
-    int *data;      //数组
+    double *data;      //数组
     int cur;        //当前排序的位子
     QThread *thread;
     Bubble *bubble;
     int time;
-
 };
 
 #endif // WIDGET_H

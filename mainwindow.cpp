@@ -1,20 +1,23 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include<QDebug>
-#include<QWaitCondition>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     length=0;
-    blockH = 20;
+    blockH = 671;
     blockW = 20;
-    data = new int [1000];
+    data = new double [1000];
     flag = 1;
     cur = 0;
     thread = new QThread(this);
     time = 1000;
+    QRegExp regx("[0-9\\s]+$");
+    QValidator *validator = new QRegExpValidator(regx);
+    ui->lineEdit->setValidator(validator);
 }
 void MainWindow::paintEvent(QPaintEvent *)//绘图
 {
@@ -24,9 +27,7 @@ void MainWindow::paintEvent(QPaintEvent *)//绘图
     QFont font1("微软雅黑",8,QFont::Bold,true);
     painter.begin(this);
     for(int i = 0; i < length;i++){
-        QRect rect(i*blockW,height()-data[i]*blockH,
-                   blockW - 1,data[i]*blockH);//绘制矩形高度
-
+        QRect rect(i*blockW,height()-data[i]/100*blockH,blockW-1,blockH*data[i]);//绘制矩形高度（x,y,w,h)
         if(i == cur){
             painter.fillRect(rect,Qt::blue);
         }else {
@@ -34,7 +35,7 @@ void MainWindow::paintEvent(QPaintEvent *)//绘图
         }
         QString d = QString::number(data[i]);
         painter.setFont(font1);
-        painter.drawText(rect,d);
+        painter.drawText(i*blockW,height()-data[i]/100*blockH,d);
     }
     painter.end();
 }
@@ -63,7 +64,9 @@ void MainWindow::on_lineEdit_editingFinished()//文本框数据处理
     QStringList list = s.split(" ");
     length = list.size();
     for (int i = 0; i < list.size(); i++)
-       data[i] = list[i].toInt();
+    {
+        data[i] = list[i].toInt();
+    }
 }
 
 //槽函数
@@ -144,7 +147,6 @@ void MainWindow::changes()//改变顺序
         for (int i = 0; i < list.size(); i++)
            data[i] = list[i].toInt();
     }
-
 }
 
 
@@ -163,15 +165,15 @@ void::MainWindow::speed(int index)//改变速度
 {
     if(index==1)
     {
-        time=250;
+        bubble->mDelay=250;
     }
     if(index==2)
     {
-        time=80;
+        bubble->mDelay=80;
     }
     if(index==0)
     {
-        time=400;
+        bubble->mDelay=400;
     }
 }
 
