@@ -58,8 +58,8 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 }
 void MainWindow::on_lineEdit_editingFinished()//文本框数据处理
 {
-
     QString s = ui->lineEdit->text();
+    s =s.simplified();
     QStringList list = s.split(" ");
     length = list.size();
     for (int i = 0; i < list.size(); i++)
@@ -96,9 +96,20 @@ void MainWindow::on_radioButton_clicked()//升序
 
 void MainWindow::on_radioButton_2_clicked()//降序
 {
-    flag = 0;
+    flag=0;
     changes();
 }
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    insertsort();
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    mergesort();
+}
+
 
 //函数接口
 
@@ -123,12 +134,17 @@ void MainWindow::selectsort()//选择排序
 }
 void MainWindow::changes()//改变顺序
 {
-    delete bubble;
-    QString s = ui->lineEdit->text();
-    QStringList list = s.split(" ");
-    length = list.size();
-    for (int i = 0; i < list.size(); i++)
-       data[i] = list[i].toInt();
+    if(ui->lineEdit->text()!="")
+    {
+        delete bubble;
+        QString s = ui->lineEdit->text();
+        s =s.simplified();
+        QStringList list = s.split(" ");
+        length = list.size();
+        for (int i = 0; i < list.size(); i++)
+           data[i] = list[i].toInt();
+    }
+
 }
 
 
@@ -147,14 +163,35 @@ void::MainWindow::speed(int index)//改变速度
 {
     if(index==1)
     {
-        time=300;
+        time=250;
     }
     if(index==2)
     {
-        time=100;
+        time=80;
     }
     if(index==0)
     {
-        time=500;
+        time=400;
     }
+}
+
+
+void MainWindow::insertsort()
+{
+    bubble = new Bubble(time,flag,length,length,data);
+    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
+    connect(this,&MainWindow::start,bubble,&Bubble::goinsert);
+    bubble->moveToThread(thread);
+    thread->start();
+    emit start();
+}
+
+void MainWindow::mergesort()
+{
+    bubble = new Bubble(time,flag,length,length,data);
+    connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
+    connect(this,&MainWindow::start,bubble,&Bubble::gomerge);
+    bubble->moveToThread(thread);
+    thread->start();
+    emit start();
 }

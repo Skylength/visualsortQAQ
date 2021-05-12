@@ -12,11 +12,14 @@ public:
     explicit Bubble(int time,int flag,int l,int m,int *data,QObject *parent = nullptr);
     void goBubble();      //处理排序算法
     void goselect();
-
+    void goinsert();
     void goquick();
     void quicksort(int mins,int maxs);
     void swap(int i,int j);
     int quickprocess(int mins,int maxs);
+    void mergeSort(int L,int R);
+    void merge(int L,int M,int R);
+    void gomerge();
 signals:
     void bubbleSignal(int cur); //发送当前排序的位子
 private:
@@ -28,6 +31,7 @@ private:
     int mins;
     int maxs;
     int f;   //判断顺序
+    int L,R,M;
 public slots:
 };
 

@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>710</x>
-      <y>200</y>
+      <y>189</y>
       <width>201</width>
-      <height>242</height>
+      <height>285</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -49,6 +49,12 @@
           <bool>true</bool>
          </property>
          <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="autoRepeat">
+          <bool>false</bool>
+         </property>
+         <property name="autoExclusive">
           <bool>true</bool>
          </property>
         </widget>
@@ -102,6 +108,20 @@
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
         <string>选择排序</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>插入排序</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>归并排序</string>
        </property>
       </widget>
      </item>

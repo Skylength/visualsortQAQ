@@ -22,6 +22,8 @@ public:
     void bubblesort();//冒泡排序
     void selectsort();
     void quicksort();
+    void insertsort();
+    void mergesort();
 signals:
     void start();       //开启子线程
 public slots:
@@ -42,6 +44,10 @@ private slots:
     void on_radioButton_clicked();
 
     void on_comboBox_currentIndexChanged(int index);
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
 
 private:
     Ui::MainWindow *ui;
