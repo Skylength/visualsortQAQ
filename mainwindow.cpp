@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include<QDebug>
 #include<QRegExpValidator>
+#include<QRegExp>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,9 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     cur = 0;
     begin=0;
     thread = new QThread(this);
-    time = ui->horizontalSlider->value();
-
-
+    QRegExp rx("[0-9+\\s]+$");
+    QRegExpValidator *pReg = new QRegExpValidator(rx, this);
+    ui->lineEdit->setValidator(pReg);
 
 }
 void MainWindow::paintEvent(QPaintEvent *)//绘图
@@ -76,7 +77,7 @@ void MainWindow::on_pushButton_clicked()//冒泡排序
     bubblesort();
 }
 
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+void MainWindow::on_horizontalSlider_valueChanged(int value)//调节速度
 {
     if(begin)
     {
@@ -152,7 +153,7 @@ void MainWindow::ban()//禁用按钮
 void MainWindow::bubblesort()//冒泡排序
 {
     ban();
-    bubble = new Bubble(time,flag,length,length,data);
+    bubble = new Bubble(flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goBubble);
     connect(bubble,&Bubble::end,this,&MainWindow::release);
@@ -165,7 +166,7 @@ void MainWindow::bubblesort()//冒泡排序
 void MainWindow::selectsort()//选择排序
 {
     ban();
-    bubble = new Bubble(time,flag,length,length,data);
+    bubble = new Bubble(flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goselect);
     connect(bubble,&Bubble::end,this,&MainWindow::release);
@@ -192,7 +193,7 @@ void MainWindow::changes()//改变顺序
 void MainWindow::quicksort()//快速排序
 {
     ban();
-    bubble = new Bubble(time,flag,length,length,data);
+    bubble = new Bubble(flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goquick);
     connect(bubble,&Bubble::end,this,&MainWindow::release);
@@ -204,7 +205,7 @@ void MainWindow::quicksort()//快速排序
 void MainWindow::insertsort()//插入排序
 {
     ban();
-    bubble = new Bubble(time,flag,length,length,data);
+    bubble = new Bubble(flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::goinsert);
     connect(bubble,&Bubble::end,this,&MainWindow::release);
@@ -216,7 +217,7 @@ void MainWindow::insertsort()//插入排序
 void MainWindow::mergesort()//归并排序
 {
     ban();
-    bubble = new Bubble(time,flag,length,length,data);
+    bubble = new Bubble(flag,length,length,data);
     connect(bubble,&Bubble::bubbleSignal,this,&MainWindow::deal);
     connect(this,&MainWindow::start,bubble,&Bubble::gomerge);
     connect(bubble,&Bubble::end,this,&MainWindow::release);
