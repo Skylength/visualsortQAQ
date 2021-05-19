@@ -65,6 +65,7 @@ private:
     Bubble *bubble;
     int begin;
     int time;
+    bool check;
 };
 
 #endif // WIDGET_H

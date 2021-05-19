@@ -1,7 +1,7 @@
 #include "Bubble.h"
 #include <QDebug>
 #include"mainwindow.h"
-Bubble::Bubble(int time,int flag,int l, int m, double *data, QObject *parent) :
+Bubble::Bubble(int flag,int l, int m, double *data, QObject *parent) :
     QObject(parent)
 {
     length = l;
@@ -11,7 +11,7 @@ Bubble::Bubble(int time,int flag,int l, int m, double *data, QObject *parent) :
     f = flag;
 }
 
-void Bubble::goBubble()
+void Bubble::goBubble()//冒泡
 {
     for(int i = 1; i < length; i ++)
     {
@@ -84,8 +84,8 @@ void Bubble::goselect()//选择
     emit end();
 }
 
-//快速排序
-void Bubble::goquick()
+
+void Bubble::goquick()//快速排序
 {
     quicksort(0,length-1);      //进行快排
     for(int i = 0; i < length;i++){
@@ -187,7 +187,7 @@ void Bubble::goinsert()
     }
     emit end();
 }
-
+//归并排序
 void Bubble::gomerge()
 {
      L=0,R=length-1;

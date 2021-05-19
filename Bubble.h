@@ -9,7 +9,7 @@ class Bubble : public QObject
     Q_OBJECT
 public:
 
-    explicit Bubble(int time,int flag,int l,int m,double *data,QObject *parent = nullptr);
+    explicit Bubble(int flag,int l,int m,double *data,QObject *parent = nullptr);
     void goBubble();      //处理排序算法
     void goselect();
     void goinsert();
